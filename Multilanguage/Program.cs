@@ -67,8 +67,7 @@ namespace Multilanguage
         {
             if ((request as string) == "english")
             {
-                return "Język polski";
-
+                return "Język angielski";
             }
             else
             {
