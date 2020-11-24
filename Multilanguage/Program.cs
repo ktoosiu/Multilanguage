@@ -16,13 +16,52 @@ namespace Multilanguage
         {
             CreateHostBuilder(args).Build().Run();
         }
-
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+    Host.CreateDefaultBuilder(args)
+        .ConfigureWebHostDefaults(webBuilder =>
+        {
+            webBuilder.UseStartup<Startup>();
+        });
+
+        static void MainMain(string[] args)
+        {
+            // The other part of the client code constructs the actual chain.
+            var english = new EnglishHandler();
+            var polish = new PolishHandler();
+            var any = new AnyHandler();
+            //firs.setNex english
+            english.SetNext(polish).SetNext(any);
+
+            // The client should be able to send a request to any handler, not
+            // just the first one in the chain.
+            Console.WriteLine("Chain: English > Polish > Any\n");
+            Client.ClientCode(english);//jakiś język który chcemy
+            Console.WriteLine();
+        }
+    }
+
+    class Client
+    {
+        // The client code is usually suited to work with a single handler. In
+        // most cases, it is not even aware that the handler is part of a chain.
+        public static void ClientCode(AbstractHandler handler)
+        {
+            foreach (var food in new List<string> { "Nut", "Banana", "Cup of coffee" })
+            {
+                Console.WriteLine($"Client: Who wants a {food}?");
+
+                var result = handler.Handle(food);
+
+                if (result != null)
                 {
-                    webBuilder.UseStartup<Startup>();
-                });
+                    Console.Write($"   {result}");
+                }
+                else
+                {
+                    Console.WriteLine($"   {food} was left untouched.");
+                }
+            }
+        }
     }
 
     public interface IHandler
@@ -61,6 +100,7 @@ namespace Multilanguage
             }
         }
     }
+
     class EnglishHandler : AbstractHandler
     {
         public override object Handle(object request)
@@ -91,13 +131,13 @@ namespace Multilanguage
         }
     }
 
-    class DogHandler : AbstractHandler
+    class AnyHandler : AbstractHandler
     {
         public override object Handle(object request)
         {
-            if (request.ToString() == "MeatBall")
+            if (request.ToString() == "Any")
             {
-                return $"Dog: I'll eat the {request.ToString()}.\n";
+                return "Język any/szukam czegokolwiek w bazie :F";
             }
             else
             {
