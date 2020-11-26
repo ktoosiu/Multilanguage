@@ -155,7 +155,7 @@ namespace Multi.Controllers
         //}
         
         [HttpGet]
-        public string Get123(string temp)
+        public Book Get123(string temp)
         {
 
 
@@ -179,7 +179,7 @@ namespace Multi.Controllers
 
             
 
-            return Client.ClientCode(userL, temp).ToString();
+            return Client.ClientCode(userL, temp);
         }
 
 
