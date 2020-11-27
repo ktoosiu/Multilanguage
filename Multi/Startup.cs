@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MultiChain.Interface;
+using MultiChain.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,9 @@ namespace Multi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Multi", Version = "v1" });
             });
+
+            services.AddScoped<IMultiChain, MultiChain.Services.MultiChain>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +59,8 @@ namespace Multi
             {
                 endpoints.MapControllers();
             });
+
+
         }
     }
 }
