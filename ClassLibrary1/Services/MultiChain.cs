@@ -13,7 +13,8 @@ namespace MultiChain.Services
     {
 
 
-
+        //TODO dla clienta wszystko gra a dla wielu dodaje poza tym o co pytam to reszte w zbiorze tzn wszystkie PL i GB , mozna by jeszcze to jakos rozdzelic ale jak dla mnie jest w pyte 
+        //TODO w klasie client sa chwilowe dane, trzeba dorobic mongo i w tym miejscu powinien pobierac dane 
 
         public async Task<Book> Get(string language)
         {
@@ -93,7 +94,7 @@ namespace MultiChain.Services
     {
         public override object Handle(object request, string lang)
         {
-            if (lang == "pl-PL")
+            if ((request as string) == "pl-PL")
             {
                 return request;
 
@@ -109,7 +110,7 @@ namespace MultiChain.Services
     {
         public override object Handle(object request, string lang)
         {
-            if (lang == "en-GB")
+            if ((request as string) == "en-GB")
             {
                 return request;
 
@@ -138,12 +139,7 @@ namespace MultiChain.Services
                     Books=new[]
                     {
 
-                          new Book
-                        {
-                            Title="test1",
-                            ShortDescription="angielski opis",
-                            LanguageCode="en-GB"
-                        },
+                        
                            new Book
                         {
                             Title="test2",
@@ -156,7 +152,13 @@ namespace MultiChain.Services
                             Title="test4",
                             ShortDescription="Norweski ospi",
                             LanguageCode="nb-NO"
-                        }
+                        },
+                        //   new Book
+                        //{
+                        //    Title="test1",
+                        //    ShortDescription="angielski opis",
+                        //    LanguageCode="en-GB"
+                        //}
                     }
 
                 },
@@ -207,12 +209,12 @@ namespace MultiChain.Services
                             ShortDescription="Norweski ospi",
                             LanguageCode="nb-NO"
                         },
-                         new Book
-                        {
-                            Title="test3",
-                            ShortDescription="polski opisz",
-                            LanguageCode="pl-PL"
-                        }
+                        // new Book
+                        //{
+                        //    Title="test3",
+                        //    ShortDescription="polski opisz",
+                        //    LanguageCode="pl-PL"
+                        //}
 
                     }
 

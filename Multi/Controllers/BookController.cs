@@ -36,7 +36,6 @@ namespace Multi.Controllers
 
             var resuult = _multiChain.GetAll(codeL).Result.ToList();
 
-
             return resuult;
 
         }
@@ -46,9 +45,7 @@ namespace Multi.Controllers
         public Book Get123(string temp)
         {
 
-
-            //doto tu musi byc pobranie z bazy
-
+            
             var resuult = _multiChain.Get(temp).Result;
 
            
