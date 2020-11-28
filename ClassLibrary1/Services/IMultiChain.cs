@@ -10,9 +10,8 @@ namespace MultiChain.Interface
     public interface IMultiChain
     {
 
-        Task<Book> Get (string  language);
+        Task<Book> Get(string language);
         Task<IEnumerable<Book>> GetAll(string language);
-
     }
 
     public interface IHandler
@@ -21,5 +20,4 @@ namespace MultiChain.Interface
 
         object Handle(object request, string lang);
     }
-
 }

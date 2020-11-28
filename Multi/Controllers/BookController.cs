@@ -25,48 +25,20 @@ namespace Multi.Controllers
             _multiChain = multiChain;
         }
 
-
-
-
-        [HttpGet("{codeL}")]
-        public List<Book> GetAll(string codeL)
+        [HttpGet("{codeLang}")]
+        public List<Book> GetAll(string codeLang)
         {
-            
+            var result = _multiChain.GetAll(codeLang).Result.ToList();
 
-
-            var resuult = _multiChain.GetAll(codeL).Result.ToList();
-
-            return resuult;
-
+            return result;
         }
-
 
         [HttpGet]
-        public Book Get123(string temp)
+        public Book Get123(string codeLang)
         {
+            var result = _multiChain.Get(codeLang).Result;
 
-            
-            var resuult = _multiChain.Get(temp).Result;
-
-           
-            return resuult;
-
-
+            return result;
         }
-
-
     }
-
-
-
-    
-
-   
-  
-
-
-
-
-
-
 }

@@ -11,44 +11,35 @@ namespace MultiChain.Services
 {
     public class MultiChain : IMultiChain
     {
-
-
         //TODO dla clienta wszystko gra a dla wielu dodaje poza tym o co pytam to reszte w zbiorze tzn wszystkie PL i GB , mozna by jeszcze to jakos rozdzelic ale jak dla mnie jest w pyte 
         //TODO w klasie client sa chwilowe dane, trzeba dorobic mongo i w tym miejscu powinien pobierac dane 
 
         public async Task<Book> Get(string language)
         {
-            var userL = new UserLanguaheHandler();
+            var userLang = new UserLanguageHandler();
             var pol = new PolishHandler();
             var eng = new EnglishHandler();
 
-            userL.SetNext(eng).SetNext(pol);
+            userLang.SetNext(eng).SetNext(pol);
 
-            var temp =  Client.ClientCode(userL, language);
+            var client = Client.ClientCode(userLang, language);
 
-            return temp;
-
+            return client;
         }
 
         public async Task<IEnumerable<Book>> GetAll(string language)
         {
-            var userL = new UserLanguaheHandler();
+            var userLang = new UserLanguageHandler();
             var pol = new PolishHandler();
             var eng = new EnglishHandler();
 
-            userL.SetNext(eng).SetNext(pol);
+            userLang.SetNext(eng).SetNext(pol);
 
-            var temp = Client.ClientCodeAll(userL, language);
+            var temp = Client.ClientCodeAll(userLang, language);
 
-            
-
-        
             return temp;
         }
-
-        
     }
-
 
     abstract class AbstractHandler : IHandler
     {
@@ -57,7 +48,6 @@ namespace MultiChain.Services
         public IHandler SetNext(IHandler handler)
         {
             this._nextHandler = handler;
-
 
             return handler;
         }
@@ -75,7 +65,7 @@ namespace MultiChain.Services
         }
     }
 
-    class UserLanguaheHandler : AbstractHandler
+    class UserLanguageHandler : AbstractHandler
     {
         public override object Handle(object request, string lang)
         {
@@ -122,15 +112,12 @@ namespace MultiChain.Services
         }
     }
 
-
-
     class Client
     {
         public static Book ClientCode(AbstractHandler handler, string lang)
         {
-
             var tempList = new[]
-            {
+{
                 new Autor
                 {
                     Id=1,
@@ -138,9 +125,7 @@ namespace MultiChain.Services
                     LastName="Pajak",
                     Books=new[]
                     {
-
-                        
-                           new Book
+                                                   new Book
                         {
                             Title="test2",
                             ShortDescription="dunski opis",
@@ -188,8 +173,7 @@ namespace MultiChain.Services
                             LanguageCode="en-GB"
                         }
                     }
-
-                },
+                                    },
                    new Autor
                 {
                     Id=3,
@@ -215,13 +199,9 @@ namespace MultiChain.Services
                         //    ShortDescription="polski opisz",
                         //    LanguageCode="pl-PL"
                         //}
-
-                    }
-
-                },
-
-            };
-
+                                            }
+                                    },
+                               };
 
             foreach (var item in tempList)
             {
@@ -236,10 +216,7 @@ namespace MultiChain.Services
                 }
             }
 
-
-
             return tempList[0].Books.ElementAt(0);
-
         }
 
         public static List<Book> ClientCodeAll(AbstractHandler handler, string lang)
@@ -280,8 +257,8 @@ namespace MultiChain.Services
                   new Autor
                 {
                     Id=2,
-                    FirstName="bartosz",
-                    LastName="jarosz",
+                    FirstName="Bartosz",
+                    LastName="Jarosz",
                     Books=new[]
                     {
                         new Book
@@ -303,7 +280,6 @@ namespace MultiChain.Services
                             LanguageCode="en-GB"
                         }
                     }
-
                 },
                    new Autor
                 {
@@ -330,16 +306,11 @@ namespace MultiChain.Services
                             ShortDescription="polski opisz",
                             LanguageCode="pl-PL"
                         }
-
-                    }
-
-                },
-
-            };
-
+                                             }
+                                    },
+                               };
 
             var resultList = new List<Book>();
-
 
             foreach (var item in tempList)
             {
@@ -363,10 +334,6 @@ namespace MultiChain.Services
             }
             else
                 return resultList;
-
         }
-
     }
-
-
 }

@@ -28,7 +28,6 @@ namespace Multi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -36,7 +35,6 @@ namespace Multi
             });
 
             services.AddScoped<IMultiChain, MultiChain.Services.MultiChain>();
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,8 +57,6 @@ namespace Multi
             {
                 endpoints.MapControllers();
             });
-
-
         }
     }
 }
